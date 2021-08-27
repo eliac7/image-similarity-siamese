@@ -24,6 +24,7 @@ My thesis was to implement a Siamese Neural Network using the VGG19 model, pre-t
 </ul>
 
 ## Built With
+
 * AJAX
 * Leaflet Maps
 * OpenStreetMap tiles
