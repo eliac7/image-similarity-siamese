@@ -79,7 +79,11 @@ Zooming into a geographical cluster, you'll some points of interest. Clicking on
 
 
 ## How to install?
-Firstly, we suppose that you already have installed Python. I would suggest creating a new virtual environment and run the below command to install the required packages.
+Firstly, you have to clone the repo 
+```
+git clone https://github.com/eliac7/image-similarity-siamese.git
+```
+Secondly, we suppose that you already have installed Python. I would suggest creating a new virtual environment and run the below command to install the required packages.
 ```
 pip install -r requirements.txt
 ```
