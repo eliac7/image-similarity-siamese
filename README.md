@@ -5,7 +5,7 @@
 ## What is this for?
 My thesis was to implement a Siamese Neural Network using the VGG19 model, pre-trained on ImageNet to calculate the match of a query image through a dataset of images. To find the similarity, I used a contrastive loss function and a Euclidean distance. On this repo, you will find my implementation on a web app for this purpose.
 
-<strong>The main language of the web app is in Greek. :greece:	 </strong>
+<strong>The main language of the app is in Greek. :greece:	 </strong>
 
 
 ## Features
