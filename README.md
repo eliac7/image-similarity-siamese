@@ -88,10 +88,10 @@ Secondly, we suppose that you already have installed Python. I would suggest cre
 pip install -r requirements.txt
 ```
 
-The folder structure is already there, so you no need to make any changes on the it. However, you need to execute the <strong>
+The folder structure is already there, so you no need to make any changes on it. However, you need to execute the <strong>
 extract_train_csv
 </strong>
-file, to generate the corresponding CSVs for each geographical cluster. 
+file, to generate the corresponding CSVs for each geographical cluster to the corresponding placeholdered folders. 
 
 Furthemore, you'll need to setup PHP with Apache Server. I suggest you to download <a href="https://laragon.org/" target="_blank">Laragon</a> which has a friendly UI.
 
