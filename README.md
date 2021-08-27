@@ -69,12 +69,13 @@ By clicking the arrow, a window appears that shows us the weather forecast for t
 On the right side, we have the window with all the geographical clusters. Clicking on one of them, refers to the respective geographical complex which shifts to it while performing a smooth movement.
 
 
+<p align="center">
+  <img  src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/leaflet/leaflet_03.jpg?raw=true">
+</p>
 
+Zooming into a geographical cluster, you'll some points of interest. Clicking on one of the points of interest, a window appears with a photo of the point of interest, its name and two buttons. The first, represented by the Google logo, refers us to the company's photo results to see more images for the point of interest. The second is an information icon (i) that takes us to a web page with information about each point.
 
-
-
-
-
+ In addition, on the left, we see two flags: Greek, which is by default, and English. By changing the language, the point's name and the two buttons are changing accordingly.
 
 
 ## How to install?
@@ -83,6 +84,16 @@ Firstly, we suppose that you already have installed Python. I would suggest crea
 pip install -r requirements.txt
 ```
 
+The folder structure is already there, so you no need to make any changes on the it. However, you need to execute the <strong>
+extract_train_csv
+</strong>
+file, to generate the corresponding CSVs for each geographical cluster. 
 
+Furthemore, you'll need to setup PHP with Apache Server. I suggest you to download <a href="https://laragon.org/" target="_blank">Laragon</a> which has a friendly UI.
+
+
+## Credits
+
+* Design was inspired by https://codepen.io/Ali-Majed/pen/BaRoyrG (Ali Majed)
 
 
