@@ -18,7 +18,7 @@ My thesis was to implement a Siamese Neural Network using the VGG19 model, pre-t
 <li>Weather per geographical complex, with forecast for the next three days*. </li>
 <li>Instantly shift to any geographic cluster of the map with one click. </li>
 <li>Instant search on Flickr, with unlimited number of results. Ability to save photos with the ease of one click.* </li>
-<li>FAQ with modals and accordion. </li>
+<li>FAQs with modals and accordion. </li>
 <br/>
 *You need API key.
 </ul>
