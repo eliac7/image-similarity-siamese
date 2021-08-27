@@ -101,4 +101,7 @@ Furthemore, you'll need to setup PHP with Apache Server. I suggest you to downlo
 * Design was inspired by https://codepen.io/Ali-Majed/pen/BaRoyrG (Ali Majed)
 * All photos in our database were downloaded from public photos by Flickr API and Instagram GraphQL API.All rights belong to their respective owners. I do not own any of this content.
 
+## Contact 
+
+Ilias Nikolaos Thalassochoritis - [@ilias_thal](https://twitter.com/ilias_thal) - ithalassochoritis@uth.gr
 
