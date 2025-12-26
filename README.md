@@ -1,108 +1,112 @@
+# Image Similarity with Siamese Networks & Geolocation
 
+<p align="center">
+  <img width='350' src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/flickr/flickr_04.jpg?raw=true" alt="App Preview">
+</p>
 
+## About The Project
 
-# Web app for Image Similarity using Siamese Neural Network.
-## What is this for?
-My thesis was to implement a Siamese Neural Network using the VGG19 model, pre-trained on ImageNet to calculate the match of a query image through a dataset of images. To find the similarity, I used a contrastive loss function and a Euclidean distance. On this repo, you will find my implementation on a web app for this purpose.
+This web application was developed as my university thesis to implement a **Siamese Neural Network** for image retrieval. It allows users to identify historical landmarks in Greece by uploading a photo, combining **Computer Vision** and **Geolocation** to provide accurate results.
 
-<strong>The main language of the app is in Greek. :greece:	 </strong>
+The system uses the **VGG19** architecture, pre-trained on ImageNet, to calculate the visual similarity (Euclidean distance) between a query image and a dataset of landmarks using a contrastive loss function.
 
+**Key Innovation:** To optimize performance and accuracy, the application checks for GPS metadata in the uploaded image.
+*   **With GPS:** The search is narrowed down to a specific geographical "cluster" (e.g., Athens, Thessaloniki, Corfu), using a specialized model for that region.
+*   **Without GPS:** A general model trained on the entire dataset is used.
+
+**The main interface is in Greek :greece:, with English :uk: support for landmark information.**
 
 ## Features
 
-<ul>
-<li>Dark Mode.</li>
-<li>Photo support with  JPG, JPEG and PNG format  using GPS coordinates. </li>
-<li>Ability to "drag and drop" for convenience without the need to find the photo through directories. </li>
-<li>Map with points of interest, direct access to information and photos in English and Greek. </li>
-<li>Weather per geographical complex, with forecast for the next three days*. </li>
-<li>Instantly shift to any geographic cluster of the map with one click. </li>
-<li>Instant search on Flickr, with unlimited number of results. Ability to save photos with the ease of one click.* </li>
-<li>FAQs with modals and accordion. </li>
-<br/>
-*You need API key.
-</ul>
+*   **Smart Image Search:** Drag & drop support with automatic GPS detection.
+*   **Geographical Clustering:** 5 specific clusters + 1 general cluster for optimized matching.
+*   **Interactive Map:** Leaflet-based map displaying landmarks, clusters, and user location.
+*   **Weather Integration:** Real-time weather and 3-day forecast for each geographical cluster.
+*   **Flickr Integration:** Search and download images directly from Flickr to test the model.
+*   **Dark Mode:** System-aware and user-toggleable dark theme.
+*   **Responsive Design:** Works on desktop and mobile devices.
 
 ## Built With
 
-* AJAX
-* Leaflet Maps
-* OpenStreetMap tiles
-* OpenWeatherMap
-* <a href='https://github.com/MikeKovarik/exifr' target='_blank'>Exifr</a>
-* <a href='https://github.com/eligrey/FileSaver.js/' target='_blank'>FileSaver.js</a>
+**Frontend:**
+*   HTML5 / CSS3 / JavaScript (jQuery)
+*   [Leaflet Maps](https://leafletjs.com/) & OpenStreetMap Tiles
+*   [Exifr](https://github.com/MikeKovarik/exifr) (for GPS extraction)
+*   [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
 
+**Backend:**
+*   **PHP:** Handles file uploads and orchestrates the Python script.
+*   **Python:** Runs the TensorFlow/Keras model.
+*   **TensorFlow / Keras:** VGG19 Siamese Network implementation.
+*   **OpenWeatherMap API:** Weather data.
+*   **Flickr API:** Image search.
 
-## How it works?
+## Getting Started
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+*   **Python 3.x**
+*   **PHP** with a web server (e.g., Apache). [Laragon](https://laragon.org/) is recommended for Windows users.
+*   **Git**
+
+### Installation
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/eliac7/image-similarity-siamese.git
+    cd image-similarity-siamese
+    ```
+
+2.  **Install Python dependencies**
+    It is recommended to use a virtual environment.
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Setup the Database**
+    The project relies on pre-generated CSV files linking images to their labels.
+    *   Navigate to `extract_train_csv.py`.
+    *   **Important:** You must modify the `path_train` and `savefile` variables in this script and run it for **each** of the 6 clusters located in the `database/` directory (`CLUSTER_1` to `CLUSTER_5` and `CLUSTER_NO_GPS`).
+    *   This will generate the required `train.csv` files in the `labels/` directory.
+
+### Configuration
+
+This project requires manual configuration of paths and API keys.
+
+1.  **PHP Configuration (`submit.php`)**
+    Open `submit.php` and update the following placeholders with your absolute paths:
+    *   `PATH_TO_SAVE_UPLOADED_IMAGE`: Directory where uploaded temp images will be saved.
+    *   `PATH_TO_PYTHON_EXE_WITH_REQUIREMENTS_INSTALLED`: Full path to your Python executable (e.g., inside your virtualenv).
+    *   `PATH_TO_SIAMESE_RESULTS_PY`: Full path to the `siamese_results.py` file.
+
+2.  **JavaScript Configuration (`script.js`)**
+    Open `script.js` and replace the placeholders:
+    *   `API_KEY`: Search for this string and replace it with your **OpenWeatherMap** API key and **Mapbox** Access Token.
+    *   (Optional) Update the Flickr API key in the `Flickr()` function if needed.
+
+## Usage
+
+1.  Start your local web server (e.g., Start All in Laragon).
+2.  Open `index.php` in your browser.
+3.  **Search:** Drag and drop an image of a Greek landmark.
+    *   If it has GPS, the map will zoom to the location.
+    *   The system will process the image and display the most similar match from the database.
+4.  **Explore:** Click on map clusters to see weather and points of interest.
+5.  **Flickr:** Use the "Search on Flickr" button to find new test images.
+
+## Architecture Visualization
 
 <p align="center">
-  <img width='350' src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/flickr/flickr_04.jpg?raw=true">
+  <img width='350' src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/flickr/flickr_06.jpg?raw=true" alt="Results">
 </p>
-
-Our application deals with two essential functions. The first is the function of finding the user's given photo similarity with one of our database photos by exporting features from it, checking the availability of GPS geographical coordinates of the given image, and displaying results.
-
-Practically, we have a total of six pre-trained models. The five models correspond to the five geographical clusters. If our photo contains GPS coordinates and its location is within one of the five clusters, it uses the corresponding pre-trained model and shows the results below.
-
-Otherwise, if our photo does not have GPS coordinates or is not in one of the five geographical clusters, it uses the sixth pre-trained model trained on all geographical clusters.
-
-<p align="center">
-  <img width='350' src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/flickr/flickr_06.jpg?raw=true">
-</p>
-
-
-The second function is th ability to download photos from Flickr using their Flickr API, and with one click, we can download them on our PC or smartphone.
-
-
-<p align="center">
-  <img width='350' src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/flickr/flickr_02.png?raw=true">
-</p>
-
-## Map
-
-<p align="center">
-  <img  src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/leaflet/leaflet_01.jpg?raw=true">
-</p>
-
-On the left side, from top to bottom, we see two buttons to zoom in and out on the map, while the bottom shows the weather of each geographic cluster, the weather icon, and the maximum temperature in Celsius degrees.
-
-By clicking the arrow, a window appears that shows us the weather forecast for the next three days, with the maximum temperature by day.
-
-On the right side, we have the window with all the geographical clusters. Clicking on one of them, refers to the respective geographical complex which shifts to it while performing a smooth movement.
-
-
-<p align="center">
-  <img  src="https://github.com/eliac7/image-similarity-siamese/blob/main/tutorial-images/leaflet/leaflet_03.jpg?raw=true">
-</p>
-
-Zooming into a geographical cluster, you'll some points of interest. Clicking on one of the points of interest, a window appears with a photo of the point of interest, its name and two buttons. The first, represented by the Google logo, refers us to the company's photo results to see more images for the point of interest. The second is an information icon (i) that takes us to a web page with information about each point.
-
- In addition, on the left, we see two flags: Greek, which is by default, and English. By changing the language, the point's name and the two buttons are changing accordingly.
-
-
-## How to install?
-Firstly, you have to clone the repo 
-```
-git clone https://github.com/eliac7/image-similarity-siamese.git
-```
-Secondly, we suppose that you already have installed Python. I would suggest creating a new virtual environment and run the below command to install the required packages.
-```
-pip install -r requirements.txt
-```
-
-The folder structure is already there, so you no need to make any changes on it. However, you need to execute the <strong>
-extract_train_csv
-</strong>
-file, to generate the corresponding CSVs for each geographical cluster to the corresponding placeholdered folders. 
-
-Furthemore, you'll need to setup PHP with Apache Server. I suggest you to download <a href="https://laragon.org/" target="_blank">Laragon</a> which has a friendly UI.
-
 
 ## Credits
 
-* Design was inspired by https://codepen.io/Ali-Majed/pen/BaRoyrG (Ali Majed)
-* All photos in our database were downloaded from public photos by Flickr API and Instagram GraphQL API.All rights belong to their respective owners. I do not own any of this content.
+*   Design inspired by [Ali Majed](https://codepen.io/Ali-Majed/pen/BaRoyrG).
+*   Photos sourced via Flickr API and Instagram GraphQL API. All rights belong to their respective owners.
 
-## Contact 
+## Contact
 
 Ilias Nikolaos Thalassochoritis - [@ilias_thal](https://twitter.com/ilias_thal) - ithalassochoritis@uth.gr
-
